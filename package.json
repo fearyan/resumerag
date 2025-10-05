@@ -5,10 +5,14 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
+    "build": "tsc && npm run copy-files",
+    "copy-files": "echo 'Build complete'",
     "start": "node dist/index.js",
     "migrate": "ts-node src/database/migrate.ts",
+    "migrate:prod": "node dist/database/migrate.js",
     "seed": "ts-node src/database/seed.ts",
+    "seed:prod": "node dist/database/seed.js",
+    "deploy": "npm run build && npm run migrate:prod && npm start",
     "test": "echo \"Tests not implemented\" && exit 0"
   },
   "keywords": ["resume", "rag", "ai", "job-matching"],
@@ -28,7 +32,9 @@
     "openai": "^4.20.1",
     "node-cache": "^5.1.2",
     "dotenv": "^16.3.1",
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
@@ -40,8 +46,6 @@
     "@types/pdf-parse": "^1.1.4",
     "@types/node": "^20.10.5",
     "@types/adm-zip": "^0.5.5",
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
   }
 }
